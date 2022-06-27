@@ -10,11 +10,9 @@ public class ClienteDAOImpl implements ClienteDAO{
     public Connection connect(String urlConexao) {
        try{
            this.connection = DriverManager.getConnection(urlConexao);
-           System.out.println("Conectado com sucesso");
            return connection;
        } catch(SQLException e){
             System.out.println(e.getMessage());
-            System.out.println("deu ruim");
             return null;
        }
     }
@@ -26,10 +24,8 @@ public class ClienteDAOImpl implements ClienteDAO{
             Connection conexaco = connect(urlConexao);
             Statement stm = conexaco.createStatement();
             stm.execute(sql);
-            System.out.println("Tabela criada!");
         } catch(SQLException e){
             System.out.println(e.getMessage());
-            System.out.println("deu ruim");
         }
     }
 
@@ -47,11 +43,8 @@ public class ClienteDAOImpl implements ClienteDAO{
 
         pstm.executeUpdate();
 
-        System.out.println("Inseriu!");
-
        } catch(SQLException e){
             System.out.println(e.getMessage());
-            System.out.println("deu ruim");
        }
         
     }
@@ -73,18 +66,16 @@ public class ClienteDAOImpl implements ClienteDAO{
                 resultado.getString("rg"));
             }
 
-            System.out.println("Selecionou!");
 
         } catch(SQLException e){
             System.out.println(e.getMessage());
-            System.out.println("deu ruim");
        }
         
     }
 
     @Override
     public void update(String urlConexao, int id, String name, Integer idade) {
-        String sql = "UPDATE cliente set nome = ?, idade = ?, where id = ?";
+        String sql = "UPDATE cliente set nome = ?, idade = ? where id = ?";
         try{
             Connection conexaco = connect(urlConexao);
             PreparedStatement pstm = conexaco.prepareStatement(sql);
@@ -93,11 +84,9 @@ public class ClienteDAOImpl implements ClienteDAO{
             pstm.setInt(2, idade);
             pstm.setInt(3, id);
             pstm.executeUpdate();
-            System.out.println("Atualizou!");
 
         } catch(SQLException e){
             System.out.println(e.getMessage());
-            System.out.println("deu ruim");
        }
         
     }
@@ -112,11 +101,9 @@ public class ClienteDAOImpl implements ClienteDAO{
             pstm.setInt(1, id);
 
             pstm.executeUpdate();
-            System.out.println("Deletou!");
-            
+
         } catch(SQLException e){
             System.out.println(e.getMessage());
-            System.out.println("deu ruim");
        }
     }
     
