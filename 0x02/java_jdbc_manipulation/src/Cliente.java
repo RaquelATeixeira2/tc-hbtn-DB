@@ -26,13 +26,13 @@ public class Cliente {
     public String getCpf() {
         return cpf;
     }
-    public void setCPF(String cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
     public String getRG() {
         return RG;
     }
-    public void setRG(String RG) {
+    public void setRg(String RG) {
         this.RG = RG;
     }
 

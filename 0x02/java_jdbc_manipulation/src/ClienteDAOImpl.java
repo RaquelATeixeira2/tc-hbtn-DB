@@ -1,41 +1,123 @@
 import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+import java.sql.*;
 
 public class ClienteDAOImpl implements ClienteDAO{
-
+    private Connection connection;
     @Override
     public Connection connect(String urlConexao) {
-        // TODO Auto-generated method stub
-        return null;
+       try{
+           this.connection = DriverManager.getConnection(urlConexao);
+           System.out.println("Conectado com sucesso");
+           return connection;
+       } catch(SQLException e){
+            System.out.println(e.getMessage());
+            System.out.println("deu ruim");
+            return null;
+       }
     }
 
     @Override
     public void createTable(String urlConexao) {
-        // TODO Auto-generated method stub
-        
+        String sql = "CREATE TABLE IF NOT EXISTS cliente (id integer primary key, nome varchar(40) not null, idade integer, cpf varchar(40) not null, rg varchar(40))";
+        try{
+            Connection conexaco = connect(urlConexao);
+            Statement stm = conexaco.createStatement();
+            stm.execute(sql);
+            System.out.println("Tabela criada!");
+        } catch(SQLException e){
+            System.out.println(e.getMessage());
+            System.out.println("deu ruim");
+        }
     }
 
     @Override
     public void insert(String url_conexao, Cliente cliente) {
-        // TODO Auto-generated method stub
+       String sql = "INSERT INTO cliente(nome, idade, cpf, rg) VALUES(?, ?, ?, ?)";
+
+       try{
+        Connection conexaco = connect(url_conexao);
+        PreparedStatement pstm = conexaco.prepareStatement(sql);
+        pstm.setString(1, cliente.getNome());
+        pstm.setInt(2, cliente.getIdade());
+        pstm.setString(3, cliente.getCpf());
+        pstm.setString(4, cliente.getRG());
+
+        pstm.executeUpdate();
+
+        System.out.println("Inseriu!");
+
+       } catch(SQLException e){
+            System.out.println(e.getMessage());
+            System.out.println("deu ruim");
+       }
         
     }
 
     @Override
     public void selectAll(String urlConexao) {
-        // TODO Auto-generated method stub
+        String sql = "SELECT id, nome, idade, cpf, rg FROM cliente";
+
+        try{
+            Connection conexaco = connect(urlConexao);
+            Statement stm = conexaco.createStatement();
+            ResultSet resultado = stm.executeQuery(sql);
+
+            while(resultado.next()){
+                System.out.println(resultado.getInt("id") + "\t" +
+                resultado.getString("nome") + "\t" +
+                resultado.getInt("idade") + "\t" +
+                resultado.getString("cpf") + "\t" +
+                resultado.getString("rg"));
+            }
+
+            System.out.println("Selecionou!");
+
+        } catch(SQLException e){
+            System.out.println(e.getMessage());
+            System.out.println("deu ruim");
+       }
         
     }
 
     @Override
     public void update(String urlConexao, int id, String name, Integer idade) {
-        // TODO Auto-generated method stub
+        String sql = "UPDATE cliente set nome = ?, idade = ?, where id = ?";
+        try{
+            Connection conexaco = connect(urlConexao);
+            PreparedStatement pstm = conexaco.prepareStatement(sql);
+
+            pstm.setString(1, name);
+            pstm.setInt(2, idade);
+            pstm.setInt(3, id);
+            pstm.executeUpdate();
+            System.out.println("Atualizou!");
+
+        } catch(SQLException e){
+            System.out.println(e.getMessage());
+            System.out.println("deu ruim");
+       }
         
     }
 
     @Override
     public void delete(String urlConexao, int id) {
-        // TODO Auto-generated method stub
-        
+        String sql = "DELETE FROM cliente WHERE id = ?";
+        try{
+            Connection conexaco = connect(urlConexao);
+            PreparedStatement pstm = conexaco.prepareStatement(sql);
+
+            pstm.setInt(1, id);
+
+            pstm.executeUpdate();
+            System.out.println("Deletou!");
+            
+        } catch(SQLException e){
+            System.out.println(e.getMessage());
+            System.out.println("deu ruim");
+       }
     }
     
 }
