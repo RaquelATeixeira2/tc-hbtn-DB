@@ -2,5 +2,6 @@
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
         "/home/raquelat/Downloads/sqlite-jdbc-3.36.0.3.jar"
-    ]
+    ],
+    "java.configuration.updateBuildConfiguration": "automatic"
 }
