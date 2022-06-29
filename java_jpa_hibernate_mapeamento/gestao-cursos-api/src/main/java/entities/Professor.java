@@ -1,26 +1,16 @@
 package entities;
 
+import javax.persistence.*;
 import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
 @Entity
 public class Professor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "nomeCompleto")
-    private String nomeCompleto;
-    @Column(name = "matricula")
+    private String nome;
     private String matricula;
-    @Column(name = "email")
     private String email;
-
     @OneToMany(mappedBy = "professor")
     private List<Curso> cursos;
 
@@ -32,12 +22,12 @@ public class Professor {
         this.id = id;
     }
 
-    public String getNomeCompleto() {
-        return nomeCompleto;
+    public String getNome() {
+        return nome;
     }
 
-    public void setNomeCompleto(String nomeCompleto) {
-        this.nomeCompleto = nomeCompleto;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public String getMatricula() {
@@ -63,7 +53,4 @@ public class Professor {
     public void setCursos(List<Curso> cursos) {
         this.cursos = cursos;
     }
-
-    
-
 }

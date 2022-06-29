@@ -1,32 +1,19 @@
 package entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
 public class Endereco {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "logradouro")
     private String logradouro;
-    @Column(name = "endereco")
     private String endereco;
-    @Column(name = "numero")
     private String numero;
-    @Column(name = "bairro")
     private String bairro;
-    @Column(name = "cidade")
     private String cidade;
-    @Column(name = "estado")
     private String estado;
-    @Column(name = "cep")
-    private Integer cep;
-
+    private String cep;
     @ManyToOne
     private Aluno aluno;
 
@@ -86,11 +73,11 @@ public class Endereco {
         this.estado = estado;
     }
 
-    public Integer getCep() {
+    public String getCep() {
         return cep;
     }
 
-    public void setCep(Integer cep) {
+    public void setCep(String cep) {
         this.cep = cep;
     }
 
@@ -101,5 +88,4 @@ public class Endereco {
     public void setAluno(Aluno aluno) {
         this.aluno = aluno;
     }
-    
 }

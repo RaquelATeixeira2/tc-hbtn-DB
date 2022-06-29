@@ -1,96 +1,93 @@
 package models;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import entities.Curso;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-
-import entities.Curso;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CursoModel {
-    public void create(Curso curso) {
+
+    public void create(Curso c) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("gestao-cursos-jpa");
         EntityManager em = emf.createEntityManager();
 
         try {
-            System.out.println("Iniciando a transação");
             em.getTransaction().begin();
-            em.persist(curso);
+            em.persist(c);
             em.getTransaction().commit();
-            System.out.println("Curso criado com sucesso !!!");
         } catch (Exception e) {
+            em.getTransaction().rollback();
             em.close();
-            System.err.println("Erro ao criar um Curso !!!" + e.getMessage());
+            System.err.println("Erro ao criar curso !!!" + e.getMessage());
         } finally {
             em.close();
-            System.out.println("Finalizando a transação");
         }
     }
 
-    public Curso findById(Curso Curso) {
+    public Curso findById(Curso c) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("gestao-cursos-jpa");
         EntityManager em = emf.createEntityManager();
-        Curso a = null;
+        Curso curso = null;
 
         try{
-            a = em.find(Curso.class, Curso.getId());
+            curso = em.find(Curso.class, c.getId());
         } catch (Exception e){
             System.err.println(e.getMessage());
         }
+
         em.close();
         emf.close();
-
-        return a;
+        return curso;
     }
 
-    public  List<Curso> findAll() {
+    public List<Curso> findAll() {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("gestao-cursos-jpa");
         EntityManager em = emf.createEntityManager();
-
-        List<Curso> Cursos = new ArrayList<Curso>();
+        List<Curso> cursos = new ArrayList<>();
 
         try{
-            Cursos = em.createQuery("from Curso").getResultList();
-        }catch (Exception e){
+            cursos = em.createQuery("from Curso").getResultList();
+        } catch (Exception e){
             System.err.println(e.getMessage());
         }
+
         em.close();
         emf.close();
-
-        return Cursos;
+        return cursos;
     }
 
-    public void update(Curso Curso) {
+    public void update(Curso c) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("gestao-cursos-jpa");
         EntityManager em = emf.createEntityManager();
 
         try{
             em.getTransaction().begin();
 
-            em.merge(Curso);
+            em.merge(c);
 
             em.getTransaction().commit();
-        }catch (Exception e){
+        } catch (Exception e){
+            em.getTransaction().rollback();
             System.err.println(e.getMessage());
         }
         em.close();
         emf.close();
     }
 
-    public void delete(Curso Curso) {
+    public void delete(Curso c) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("gestao-cursos-jpa");
         EntityManager em = emf.createEntityManager();
 
         try{
             em.getTransaction().begin();
 
-            Curso a = em.find(Curso.class, Curso.getId());
-            em.remove(a);
+            Curso curso = em.find(Curso.class, c.getId());
+            em.remove(curso);
 
             em.getTransaction().commit();
-        }catch (Exception e){
+        } catch (Exception e){
             System.err.println(e.getMessage());
         }
         em.close();
