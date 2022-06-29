@@ -1,5 +1,7 @@
 package entities;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,7 +20,7 @@ public class Produto {
     @Column(name = "quantidade")
     private int quantidade;
     @Column(name = "preco")
-    private double preco;
+    private BigDecimal preco;
     @Column(name = "status")
     private boolean status;
 
@@ -40,11 +42,11 @@ public class Produto {
     public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
     }
-    public double getPreco() {
+    public BigDecimal getPreco() {
         return preco;
     }
-    public void setPreco(double preco) {
-        this.preco = preco;
+    public void setPreco(BigDecimal bigDecimal) {
+        this.preco = bigDecimal;
     }
     public boolean getStatus() {
         return status;

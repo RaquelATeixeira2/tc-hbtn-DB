@@ -3,5 +3,9 @@
         "lib/**/*.jar",
         "/home/raquelat/Downloads/sqlite-jdbc-3.36.0.3.jar"
     ],
-    "java.configuration.updateBuildConfiguration": "automatic"
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "java.project.sourcePaths": [
+        "0x02/java_jdbc_manipulation/src",
+        "java_jpa_hibernate_mapeamento/src/main/java/demo"
+    ]
 }
